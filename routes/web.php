@@ -14,7 +14,38 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+  $menus = [
+      [
+        'title' => 'Change Log',
+        'childs' => [],
+        'path' => '#page-top'
+      ],[
+        'title' => 'Notices',
+        'path' => '#about',
+        'childs' => [
+          ['title' =>'Proprietary Rights','path' => '#about'],
+          ['title' =>'Disclaimer','path' => '#about']]
+      ],[
+        'title' => 'Overview',
+        'path' => '#services',
+        'childs' => [
+          ['title' =>'Spesification','path' => '#services'],
+          ['title' =>'Message Specification Format','path' => '#services'],
+          ['title' =>'Authentication','path' => '#services']]
+      ],[
+        'title' => 'Services',
+        'path' => '#services',
+        'childs' => [
+          ['title' =>'Callback Cancel Order','path' => '#services'],
+          ['title' =>'Callback VA Selisih','path' => '#services'],
+          ['title' =>'Callback Pickup','path' => '#services'],
+          ['title' =>'Callback Info','path' => '#services'],
+          ['title' =>'Callback Transaction Info','path' => '#services'],
+
+          ]
+      ],
+  ];
+    return view('index',['menus'=>$menus]);
 });
 
 

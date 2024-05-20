@@ -14,7 +14,7 @@
     
     .sidebar {
         height: 100%;
-        width: 150px;
+        width: 180px;
         position: fixed;
         top: 0;
         left: 0;
@@ -26,7 +26,7 @@
     .sidebar a {
         padding: 10px 20px;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 10px;
         color: white;
         display: block;
     }
@@ -68,12 +68,24 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                 
-                    <div class="sidebar">
-                        <a href="#page-top">Change Log</a>
-                        <a href="#about">Notices</a>
-                        <a href="#services">Disclaimer</a>
-                        <a href="#appendices">Appendices</a>
-                    </div>
+                  <div class="sidebar">
+                  <a href="#page-top">Change Log</a> 
+                    @foreach ($menus as $menu)
+                      <div class="zz">
+                        <a href="#page-top" data-toggle="collapse" data-target="#collapse{{ str_replace(' ', '', $menu['title']) }}" aria-expanded="false" aria-controls="collapse{{ str_replace(' ', '', $menu['title']) }}">
+                          {{ $menu['title'] }}
+                        </a>
+                        <div class="collapse pl-2" id="collapse{{ str_replace(' ', '', $menu['title']) }}">
+                          @if (count($menu['childs']) > 0)
+                            @foreach ($menu['childs'] as $child)
+                              <a href="{{ $child['path'] }}">{{ $child['title'] }}</a>
+                            @endforeach
+                          @endif
+                        </div>
+                      </div>   
+                    @endforeach
+                    <a href="#appendices">Appendices</a> 
+                  </div>
                 </div>
             </div>
         </nav>
@@ -136,15 +148,15 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2 class="text-center mt-0">Disclaimer</h2>
+                        <h2 class="text-center mt-0">Overview</h2>
                 <hr class="divider my-4" />
                         <div>
-                            <h3  class="medium-text" style="text-align: left;">Overview</h2>
+                            <h3  class="medium-text" style="text-align: left;">Specifications</h2>
                             <h6  class="small-text" style="text-align: left; margin-left: 100px;">This document describes the specifications of the Integration Notification API.</h5>
                             <br>
                             <img src="{{asset('overview.jpg')}}">
                             <br>
-                            <h3  class="medium-text" style="text-align: left;">Message Specification Format</h2>
+                            <h3  class="medium-text" style="text-align: left;" id="authentication">Message Specification Format</h2>
                             <h6  class="small-text" style="text-align: left; margin-left: 100px;">1. The Request is using the HTTP POST protocol</h5>
                             <h6  class="small-text" style="text-align: left; margin-left: 100px;">2. The message is sent using JSON format</h5>
                             <h6  class="small-text" style="text-align: left; margin-left: 100px;">3. All request and response parameters use the Lower Camel Case writing style. Camel Case is a way to separate the words in a phrase by making the first letter of each word capitalized and not using spaces. In the Lower Camel Case, the first letter may not be capitalized. Example: username, merchantId, cekPosPenerima, etc.</h5>
@@ -210,16 +222,16 @@
     </tr>
   </tbody>
 </table>
+</div>
 
-                    <br>
-                            </div>
-                            <h3  class="medium-text" style="text-align: left;">Services</h2>
-                            <h6  class="small-text" style="text-align: left; margin-left: 100px;">Services number 1 to 4 usually used by Channel or Agent who provide Courier and Logistic services such as PosAja, PosUMKM, PosSuperApps, etc.</h5>
-                    <br>
-                            <h3  class="medium-text" style="text-align: left;">1. Callback Cancel Order</h2>
-                            <h6  class="small-text" style="text-align: left; margin-left: 100px;">This service is used in the event of a shipment cancellation by the validator.</h5>
-                            
-                        <table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
+<h2  class="medium-text" style="text-align: left;"id="cancelorder">Services</h2>
+<h6  class="small-text" style="text-align: left; margin-left: 100px;">Services number 1 to 4 usually used by Channel or Agent who provide Courier and Logistic services such as PosAja, PosUMKM, PosSuperApps, etc.</h5>
+<br>
+<br>
+
+<h3  class="medium-text" style="text-align: left;">1. Callback Cancel Order</h2>
+<h6  class="small-text" style="text-align: left; margin-left: 100px;">This service is used in the event of a shipment cancellation by the validator.</h5>                            
+<table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
   <thead>
     <tr>
       <th scope="col">Parameter</th>
@@ -318,12 +330,10 @@
   </tbody>
 </table>
 
-<table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
-                            
+<table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">                       
   <thead >
     <tr>
       <th>Callback&nbsp;Cancel&nbsp;Order</th>
-
     </tr>
   </thead>
   <tbody>
@@ -367,59 +377,60 @@
 
         <br>
           }
-</td>
+      </td>
     </tr>
     <tr >
       <th scope="row">Raw Response</th>
       <td>{
         <br>
-    "traceId": "6e4d0b9d-0c9c-46ce-b01d-11a27e6cfd8d",
-    <br>
-    "responseCode": "200",
-    <br>
-    "responseMessage": "OK",
-    <br>
-    "requestTime": "May 14, 2024 @ 09:35:46.819",
-    <br>
-    "responseTime": "May 14, 2024 @ 09:35:46.950",
-    <br>
-    "response": {
+        "traceId": "6e4d0b9d-0c9c-46ce-b01d-11a27e6cfd8d",
         <br>
-        "d": {
-            <br>
-            "amount": "50000",
-            <br>
-            "expired": "19-05-2024 23:00:00",
-            <br>
-            "extId": "QOB05091751779695",
-            <br>
-            "message": "Kiriman anda telah dibatalkan oleh Validator karena ada ketidaksesuaian barang, 
-            untuk proses pengembalian dana silahkan datang ke Kantor Pos terdekat dan infokan nomor Cekpos  12131334212 dan Pin 132452 sebelum 19-05-2024 23:00:00",
-            "nomorCekpos": "12131334212",
-            <br>
-            "pinCekpos": "132452",
-            <br>
-            "status": "50",
-            <br>
-            "type": "cancel_order"
-        },
+        "responseCode": "200",
         <br>
-        "m": "sukses kirim push notification"
-    }
+        "responseMessage": "OK",
+        <br>
+        "requestTime": "May 14, 2024 @ 09:35:46.819",
+        <br>
+        "responseTime": "May 14, 2024 @ 09:35:46.950",
+        <br>
+        "response": {
+            <br>
+            "d": {
+                <br>
+                "amount": "50000",
+                <br>
+                "expired": "19-05-2024 23:00:00",
+                <br>
+                "extId": "QOB05091751779695",
+                <br>
+                "message": "Kiriman anda telah dibatalkan oleh Validator karena ada ketidaksesuaian barang, 
+                untuk proses pengembalian dana silahkan datang ke Kantor Pos terdekat dan infokan nomor Cekpos  12131334212 dan Pin 132452 sebelum 19-05-2024 23:00:00",
+                "nomorCekpos": "12131334212",
+                <br>
+                "pinCekpos": "132452",
+                <br>
+                "status": "50",
+                <br>
+                "type": "cancel_order"
+            },
+            <br>
+            "m": "sukses kirim push notification"
+        }
 
-        <br>
-          }
+            <br>
+              }
       </td>
     </tr>
   </tbody>
 </table>
+<div id="selisih">
+<br>
+<br>
 
-<br>
-<br>
-                            <h3  class="medium-text" style="text-align: left;">2. Callback VA Selisih</h2>
-                            <h6  class="small-text" style="text-align: left; margin-left: 100px;">This service is used when there is a rate discrepancy with the Validator.</h5>
-                            
-                        <table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
+<h3  class="medium-text" style="text-align: left;">2. Callback VA Selisih</h2>
+<h6  class="small-text" style="text-align: left; margin-left: 100px;">This service is used when there is a rate discrepancy with the Validator.</h5>
+
+<table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
   <thead>
     <tr>
       <th scope="col">Parameter</th>
@@ -511,12 +522,10 @@
   </tbody>
 </table>
 
-<table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
-                            
+<table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">                        
   <thead>
     <tr>
       <th scope="col">Callback&nbsp;VA&nbsp;Selisih</th>
-
     </tr>
   </thead>
   <tbody>
@@ -539,80 +548,80 @@
     <tr>
       <th scope="row">Raw Request</th>
       <td>{
-        <br>
-            "type": "cancel_order",
-        <br>
-            "extId": "QOB05091751779695",
-        <br>    
-            "merchantId": "UMKM",
-        <br>
-            "status": "50",
-        <br>
-            "message":"Kiriman anda telah dibatalkan oleh Validator karena ada ketidaksesuaian barang, untuk 
-                proses pengembalian dana silahkan datang ke Kantor Pos terdekat dan infokan nomor Cekpos 12131334212 dan Pin 132452 sebelum 19-05-2024 23:00:00", 
-            "nomorCekpos":"12131334212",
-        <br> 
-            "pinCekpos":"132452",
-        <br>
-            "expired":"19-05-2024 23:00:00",
-        <br> 
-            "amount":"50000"
+          <br>
+              "type": "cancel_order",
+          <br>
+              "extId": "QOB05091751779695",
+          <br>    
+              "merchantId": "UMKM",
+          <br>
+              "status": "50",
+          <br>
+              "message":"Kiriman anda telah dibatalkan oleh Validator karena ada ketidaksesuaian barang, untuk 
+                  proses pengembalian dana silahkan datang ke Kantor Pos terdekat dan infokan nomor Cekpos 12131334212 dan Pin 132452 sebelum 19-05-2024 23:00:00", 
+              "nomorCekpos":"12131334212",
+          <br> 
+              "pinCekpos":"132452",
+          <br>
+              "expired":"19-05-2024 23:00:00",
+          <br> 
+              "amount":"50000"
 
-        <br>
-          }
-</td>
+          <br>
+            }
+      </td>
     </tr>
     <tr >
       <th scope="row">Raw Response</th>
       <td>{
         <br>
-    "traceId": "6e4d0b9d-0c9c-46ce-b01d-11a27e6cfd8d",
-    <br>
-    "responseCode": "200",
-    <br>
-    "responseMessage": "OK",
-    <br>
-    "requestTime": "May 14, 2024 @ 09:35:46.819",
-    <br>
-    "responseTime": "May 14, 2024 @ 09:35:46.950",
-    <br>
-    "response": {
-        <br>
-        "d": {
-            <br>
-            "amount": "50000",
-            <br>
-            "expired": "19-05-2024 23:00:00",
-            <br>
-            "extId": "QOB05091751779695",
-            <br>
-            "message": "Kiriman anda telah dibatalkan oleh Validator karena ada ketidaksesuaian barang, 
-            untuk proses pengembalian dana silahkan datang ke Kantor Pos terdekat dan infokan nomor Cekpos  12131334212 dan Pin 132452 sebelum 19-05-2024 23:00:00",
-            "nomorCekpos": "12131334212",
-            <br>
-            "pinCekpos": "132452",
-            <br>
-            "status": "50",
-            <br>
-            "type": "cancel_order"
-        },
-        <br>
-        "m": "sukses kirim push notification"
-    }
-
-        <br>
+          "traceId": "6e4d0b9d-0c9c-46ce-b01d-11a27e6cfd8d",
+          <br>
+          "responseCode": "200",
+          <br>
+          "responseMessage": "OK",
+          <br>
+          "requestTime": "May 14, 2024 @ 09:35:46.819",
+          <br>
+          "responseTime": "May 14, 2024 @ 09:35:46.950",
+          <br>
+          "response": {
+              <br>
+              "d": {
+                  <br>
+                  "amount": "50000",
+                  <br>
+                  "expired": "19-05-2024 23:00:00",
+                  <br>
+                  "extId": "QOB05091751779695",
+                  <br>
+                  "message": "Kiriman anda telah dibatalkan oleh Validator karena ada ketidaksesuaian barang, 
+                  untuk proses pengembalian dana silahkan datang ke Kantor Pos terdekat dan infokan nomor Cekpos  12131334212 dan Pin 132452 sebelum 19-05-2024 23:00:00",
+                  "nomorCekpos": "12131334212",
+                  <br>
+                  "pinCekpos": "132452",
+                  <br>
+                  "status": "50",
+                  <br>
+                  "type": "cancel_order"
+              },
+              <br>
+              "m": "sukses kirim push notification"
           }
+
+              <br>
+                }
       </td>
     </tr>
   </tbody>
 </table>
+<div id="pickup">
+<br>
+<br>
+<h3  class="medium-text" style="text-align: left;">3. Callback Pickup</h2>
+<h6  class="small-text" style="text-align: left; margin-left: 100px;">This service is used during the shipment process by the Pickuper.</h5>
 
-<br>
-<br>
-                            <h3  class="medium-text" style="text-align: left;">3. Callback Pickup</h2>
-                            <h6  class="small-text" style="text-align: left; margin-left: 100px;">This service is used during the shipment process by the Pickuper.</h5>
-                            
-                        <table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
+<table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
   <thead>
     <tr>
       <th scope="col">Parameter</th>
@@ -698,7 +707,7 @@
 </table>
 
 <table class="table table-dark small-text" style="text-align: left; max-width: 100%; overflow-x: auto;">
-                            
+                    
   <thead>
     <tr>
       <th scope="col">Callback&nbsp;Pickup</th>
@@ -786,7 +795,7 @@
   </tbody>
 </table>
 
-
+<div id="info">
 <br>
 <br>
                             <h3  class="medium-text" style="text-align: left;">4. Callback Info</h2>
@@ -942,7 +951,7 @@
   </tbody>
 </table>
 
-
+<div id="transactioninfo">
 <br>
 <br>
                             <h3  class="medium-text" style="text-align: left;">5. Callback Transaction Info</h2>

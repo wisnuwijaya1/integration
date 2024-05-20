@@ -16,11 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
   $menus = [
 [
-        'title' => 'Notices',
-        'path' => '#about',
-        'childs' => [
-          ['title' =>'- Proprietary Rights','path' => '#about'],]
-      ],[
         'title' => 'Overview',
         'path' => '#services',
         'childs' => [
@@ -30,7 +25,7 @@ Route::get('/', function () {
         'title' => 'Integration Services',
         'path' => '#services',
         'childs' => [
-          ['title' =>'Notification Services','path' => '#cancelorder', 'subchilds' => [
+          ['title' =>'-Notification Services','path' => '#cancelorder', 'subchilds' => [
               ['title' =>'1. Callback Cancel Order','path' => '#cancelorder'],
               ['title' =>'2. Callback VA Selisih','path' => '#selisih'],
               ['title' =>'3. Callback Pickup','path' => '#pickup'],

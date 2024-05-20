@@ -69,7 +69,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                 
                   <div class="sidebar">
-                  <a href="#page-top">Change Log</a> 
+                  <a href="#page-top">Change Log</a>
+                  <a href="#about">Notices</a>
                     @foreach ($menus as $menu)
                       <div class="zz">
                         <a href="#page-top" data-toggle="collapse" data-target="#collapse{{ str_replace(' ', '', $menu['title']) }}" aria-expanded="false" aria-controls="collapse{{ str_replace(' ', '', $menu['title']) }}">

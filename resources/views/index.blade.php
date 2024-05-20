@@ -14,7 +14,7 @@
     
     .sidebar {
         height: 100%;
-        width: 150px;
+        width: 180px;
         position: fixed;
         top: 0;
         left: 0;
@@ -26,7 +26,7 @@
     .sidebar a {
         padding: 10px 20px;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 10px;
         color: white;
         display: block;
     }
@@ -69,6 +69,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                 
                   <div class="sidebar">
+                  <a href="#page-top">Change Log</a> 
                     @foreach ($menus as $menu)
                       <div class="zz">
                         <a href="#page-top" data-toggle="collapse" data-target="#collapse{{ str_replace(' ', '', $menu['title']) }}" aria-expanded="false" aria-controls="collapse{{ str_replace(' ', '', $menu['title']) }}">
@@ -77,17 +78,23 @@
                         <div class="collapse pl-2" id="collapse{{ str_replace(' ', '', $menu['title']) }}">
                           @if (count($menu['childs']) > 0)
                             @foreach ($menu['childs'] as $child)
-                              <a href="{{ $child['path'] }}">{{ $child['title'] }}</a>
+                              @if (!empty($child['subchilds']))
+                                  <a href="{{ $child['path']}}" data-toggle="collapse" data-target="#collapse{{ str_replace(' ', '', $child['title']) }}" aria-expanded="false" aria-controls="collapse{{ str_replace(' ', '', $child['title']) }}">{{ $child['title']}}</a>
+                                  @foreach ($child['subchilds'] as $sub)
+                                  <div class="collapse pl-2" id="collapse{{ str_replace(' ', '', $child['title']) }}">
+                                    <a href="{{ $sub['path'] }}">{{ $sub['title']}}</a>            
+                                  </div>                    
+                                  @endforeach
+                              @else
+                                <a href="{{ $child['path'] }}">{{ $child['title']}}</a>                                
+                              @endif
                             @endforeach
                           @endif
                         </div>
                       </div>   
                     @endforeach
+                    <a href="#appendices">Appendices</a> 
                   </div>
-
-                    {{-- <a href="#about">Notices</a> --}}
-                    {{-- <a href="#services">Disclaimer</a> --}}
-                    {{-- <a href="#appendices">Appendices</a> --}}
                 </div>
             </div>
         </nav>
@@ -115,7 +122,7 @@
     <tr>
       <th scope="row">1.0</th>
       <td>15 Mei 2024</td>
-      <td>Message Specification  Document - API Notification</td>
+      <td>Service Integration Bagian Implementasi Sistem Integrasi Internal dan Eksternal</td>
       <td>Team Integration Internal & External</td>
     </tr>
  
@@ -158,7 +165,7 @@
                             <br>
                             <img src="{{asset('overview.jpg')}}">
                             <br>
-                            <h3  class="medium-text" style="text-align: left;">Message Specification Format</h2>
+                            <h3  class="medium-text" style="text-align: left;" id="authentication">Message Specification Format</h2>
                             <h6  class="small-text" style="text-align: left; margin-left: 100px;">1. The Request is using the HTTP POST protocol</h5>
                             <h6  class="small-text" style="text-align: left; margin-left: 100px;">2. The message is sent using JSON format</h5>
                             <h6  class="small-text" style="text-align: left; margin-left: 100px;">3. All request and response parameters use the Lower Camel Case writing style. Camel Case is a way to separate the words in a phrase by making the first letter of each word capitalized and not using spaces. In the Lower Camel Case, the first letter may not be capitalized. Example: username, merchantId, cekPosPenerima, etc.</h5>
@@ -224,12 +231,11 @@
     </tr>
   </tbody>
 </table>
-
-<br>
 </div>
 
-<h2  class="medium-text" style="text-align: left;">Services</h2>
+<h2  class="medium-text" style="text-align: left;"id="cancelorder">Services</h2>
 <h6  class="small-text" style="text-align: left; margin-left: 100px;">Services number 1 to 4 usually used by Channel or Agent who provide Courier and Logistic services such as PosAja, PosUMKM, PosSuperApps, etc.</h5>
+<br>
 <br>
 
 <h3  class="medium-text" style="text-align: left;">1. Callback Cancel Order</h2>
@@ -426,6 +432,7 @@
     </tr>
   </tbody>
 </table>
+<div id="selisih">
 <br>
 <br>
 
@@ -617,7 +624,7 @@
     </tr>
   </tbody>
 </table>
-
+<div id="pickup">
 <br>
 <br>
 <h3  class="medium-text" style="text-align: left;">3. Callback Pickup</h2>
@@ -797,7 +804,7 @@
   </tbody>
 </table>
 
-
+<div id="info">
 <br>
 <br>
                             <h3  class="medium-text" style="text-align: left;">4. Callback Info</h2>
@@ -953,7 +960,7 @@
   </tbody>
 </table>
 
-
+<div id="transactioninfo">
 <br>
 <br>
                             <h3  class="medium-text" style="text-align: left;">5. Callback Transaction Info</h2>

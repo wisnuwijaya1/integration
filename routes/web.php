@@ -15,34 +15,31 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
   $menus = [
-      [
-        'title' => 'Change Log',
-        'childs' => [],
-        'path' => '#page-top'
-      ],[
+[
         'title' => 'Notices',
         'path' => '#about',
         'childs' => [
-          ['title' =>'Proprietary Rights','path' => '#about'],
-          ['title' =>'Disclaimer','path' => '#about']]
+          ['title' =>'- Proprietary Rights','path' => '#about'],]
       ],[
         'title' => 'Overview',
         'path' => '#services',
         'childs' => [
-          ['title' =>'Spesification','path' => '#services'],
-          ['title' =>'Message Specification Format','path' => '#services'],
-          ['title' =>'Authentication','path' => '#services']]
+          ['title' =>'- Spesification','path' => '#services'],
+          ['title' =>'- Authentication','path' => '#authentication']]
       ],[
-        'title' => 'Services',
+        'title' => 'Integration Services',
         'path' => '#services',
         'childs' => [
-          ['title' =>'Callback Cancel Order','path' => '#services'],
-          ['title' =>'Callback VA Selisih','path' => '#services'],
-          ['title' =>'Callback Pickup','path' => '#services'],
-          ['title' =>'Callback Info','path' => '#services'],
-          ['title' =>'Callback Transaction Info','path' => '#services'],
-
-          ]
+          ['title' =>'Notification Services','path' => '#cancelorder', 'subchilds' => [
+              ['title' =>'1. Callback Cancel Order','path' => '#cancelorder'],
+              ['title' =>'2. Callback VA Selisih','path' => '#selisih'],
+              ['title' =>'3. Callback Pickup','path' => '#pickup'],
+              ['title' =>'4. Callback Info','path' => '#info'],
+              ['title' =>'5. Callback Transaction Info','path' => '#transactioninfo'],
+            ]
+          ],
+          // ['title' =>'dddd','path' => '#cancelorder']
+        ]
       ],
   ];
     return view('index',['menus'=>$menus]);

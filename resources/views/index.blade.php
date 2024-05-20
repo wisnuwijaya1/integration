@@ -69,8 +69,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                 
                   <div class="sidebar">
-                  <a href="#page-top">Change Log</a> 
-                  <a href="#about">Notices</a> 
+                  <a href="#page-top">Change Log</a>
+                  <a href="#about">Notices</a>
                     @foreach ($menus as $menu)
                       <div class="zz">
                         <a href="#page-top" data-toggle="collapse" data-target="#collapse{{ str_replace(' ', '', $menu['title']) }}" aria-expanded="false" aria-controls="collapse{{ str_replace(' ', '', $menu['title']) }}">
@@ -79,7 +79,16 @@
                         <div class="collapse pl-2" id="collapse{{ str_replace(' ', '', $menu['title']) }}">
                           @if (count($menu['childs']) > 0)
                             @foreach ($menu['childs'] as $child)
-                              <a href="{{ $child['path'] }}">{{ $child['title'] }}</a>
+                              @if (!empty($child['subchilds']))
+                                  <a href="{{ $child['path']}}" data-toggle="collapse" data-target="#collapse{{ str_replace(' ', '', $child['title']) }}" aria-expanded="false" aria-controls="collapse{{ str_replace(' ', '', $child['title']) }}">{{ $child['title']}}</a>
+                                  @foreach ($child['subchilds'] as $sub)
+                                  <div class="collapse pl-2" id="collapse{{ str_replace(' ', '', $child['title']) }}">
+                                    <a href="{{ $sub['path'] }}">{{ $sub['title']}}</a>            
+                                  </div>                    
+                                  @endforeach
+                              @else
+                                <a href="{{ $child['path'] }}">{{ $child['title']}}</a>                                
+                              @endif
                             @endforeach
                           @endif
                         </div>

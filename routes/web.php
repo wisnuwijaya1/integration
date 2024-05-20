@@ -16,27 +16,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
   $menus = [
 [
-        'title' => 'Notices',
-        'path' => '#about',
-        'childs' => [
-          ['title' =>'- Proprietary Rights','path' => '#about'],]
-      ],[
         'title' => 'Overview',
         'path' => '#services',
         'childs' => [
           ['title' =>'- Spesification','path' => '#services'],
           ['title' =>'- Authentication','path' => '#authentication']]
       ],[
-        'title' => 'Services',
+        'title' => 'Integration Services',
         'path' => '#services',
         'childs' => [
-          ['title' =>'1. Callback Cancel Order','path' => '#cancelorder'],
-          ['title' =>'2. Callback VA Selisih','path' => '#selisih'],
-          ['title' =>'3. Callback Pickup','path' => '#pickup'],
-          ['title' =>'4. Callback Info','path' => '#info'],
-          ['title' =>'5. Callback Transaction Info','path' => '#transactioninfo'],
-
-          ]
+          ['title' =>'-Notification Services','path' => '#cancelorder', 'subchilds' => [
+              ['title' =>'1. Callback Cancel Order','path' => '#cancelorder'],
+              ['title' =>'2. Callback VA Selisih','path' => '#selisih'],
+              ['title' =>'3. Callback Pickup','path' => '#pickup'],
+              ['title' =>'4. Callback Info','path' => '#info'],
+              ['title' =>'5. Callback Transaction Info','path' => '#transactioninfo'],
+            ]
+          ],
+          // ['title' =>'dddd','path' => '#cancelorder']
+        ]
       ],
   ];
     return view('index',['menus'=>$menus]);

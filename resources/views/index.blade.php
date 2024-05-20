@@ -113,7 +113,7 @@
     <tr>
       <th scope="row">1.0</th>
       <td>15 Mei 2024</td>
-      <td>Message Specification  Document - API Notification</td>
+      <td>Service Integration Bagian Implementasi Sistem Integrasi Internal dan Eksternal</td>
       <td>Team Integration Internal & External</td>
     </tr>
  
